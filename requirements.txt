@@ -1,0 +1,12 @@
+numpy
+torch
+torchvision
+cython
+cffi
+opencv-python
+scipy
+msgpack
+easydict
+matplotlib
+pyyaml
+tensorboardX
