@@ -11,9 +11,10 @@ After N frames have passed,
 For each of the following frames,
 
 4. Determine the Euclidean distance between the ground truth's location and the predicted subject's location.
+*test_net.py's bbox_pred & gt_box should be in the form a 1 x 4 (T?) matrix with (x, y, w, h).
 
 5. If the Euclidean distance exceeds twice the semi-diagonal of the bounding box, subtract from the proposal's score at a rate of N.
 
-6. If the actual subject and the predicted subject's BB and ground truth's BB have an IoU of >0.7, increment the proposal's score at a rate of N.
+6. If the predicted subject's BB and ground truth's BB have an IoU of >0.7, increment the proposal's score at a rate of N.
 
 7. Change the proposal's score at line 24 of /models/components/proposal.py.
