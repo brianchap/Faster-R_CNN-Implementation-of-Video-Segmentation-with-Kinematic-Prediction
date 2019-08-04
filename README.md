@@ -1,6 +1,6 @@
 # Faster-R_CNN-Implementation-of-Video-Segmentation-with-PyTorch-1.0
 
-Ensure that your system has PyTorch and Python are already installed.
+Ensure that your system has PyTorch and Python already installed.
 
 Execute pip install -r requirements.txt
 
