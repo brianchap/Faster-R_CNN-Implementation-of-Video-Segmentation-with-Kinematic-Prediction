@@ -1,10 +1,14 @@
 ALGORITHM
 
+After N frames have passed,
+
 1. From the first N frames, calculate the linear velocity of a subject (magnitude + direction).
 
 2. Determine if a resistance is involved (i.e. gravity).
 
 3. Use kinematic equations to determine where the subject should be located in all future frames.
+
+For each of the following frames,
 
 4. Determine the Euclidean distance between the actual subject's location and the predicted subject's location.
 
