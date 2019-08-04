@@ -17,13 +17,9 @@ To test an image, execute the following: python demo.py --net res101 --checksess
 To test a video, execute the following: python video.py --net res101 --checksession 1 --checkepoch 7 --checkpoint 10021 --load_dir ./models --video XXX (where XXX is the name of the video with extension included; videos should be located in a video folder in the root directory)
 
 ![Sample Frame No. 1](/samples/Picture1.jpg)
-Format: ![Alt Text](url)
 
 ![Sample Frame No. 2](/samples/Picture2.jpg)
-Format: ![Alt Text](url)
 
 ![Sample Frame No. 3](/samples/Picture3.jpg)
-Format: ![Alt Text](url)
 
 ![Sample Frame No. 4](/samples/Picture4.jpg)
-Format: ![Alt Text](url)
