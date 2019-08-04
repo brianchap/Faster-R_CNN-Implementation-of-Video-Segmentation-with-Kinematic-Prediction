@@ -1,4 +1,4 @@
-# Faster-R_CNN-Implementation-of-Video-Segmentation-with-PyTorch-1.0
+# Faster R-CNN Implementation of Video Segmentation with PyTorch 1.0
 
 This is the first-known implementation of R-CNN-based video segmentation that is PyTorch 1.0 compatible (stable versions included).
 
