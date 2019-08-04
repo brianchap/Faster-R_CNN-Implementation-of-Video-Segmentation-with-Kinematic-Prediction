@@ -2,7 +2,7 @@
 
 This is the first-known implementation of R-CNN-based video segmentation that is PyTorch 1.0 compatible (stable versions included).
 
-Ensure that your system has PyTorch and Python already installed.
+Ensure that your system has PyTorch, Python, and numpy 1.16.1+ already installed.
 
 Execute pip install -r requirements.txt
 
