@@ -1,9 +1,3 @@
-# --------------------------------------------------------
-# PyTorch Faster R-CNN
-# Licensed under The MIT License [see LICENSE for details]
-# Written by Kevin Cao, based on code from Jianwei Yang
-# --------------------------------------------------------
-
 """Factory method for easily getting imdbs by name."""
 from __future__ import absolute_import
 from __future__ import division
