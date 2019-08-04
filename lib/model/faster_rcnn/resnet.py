@@ -1,10 +1,3 @@
-# --------------------------------------------------------
-# PyTorch Faster R-CNN
-# Licensed under The MIT License [see LICENSE for details]
-# Written by Kevin Cao, based on code from Jianwei Yang
-# --------------------------------------------------------
-
-
 from model.utils.config import cfg
 from model.faster_rcnn.faster_rcnn import _fasterRCNN
 
