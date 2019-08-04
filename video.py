@@ -1,3 +1,5 @@
+# Consider uncommenting lines 145-146, 207-210, 273, 275-278, 325-327, 332-336, 344-346, 433, and 435-437 for enhanced efficiency.
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
