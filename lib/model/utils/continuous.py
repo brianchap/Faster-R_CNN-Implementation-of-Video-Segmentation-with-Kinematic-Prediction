@@ -3,9 +3,7 @@ import numpy as np
 import cv2
 
 # oldfunction should:
-#   1. From pascalreturn2, determine whether gravity and/or another resistive force should be
-#      incorporated.
-#   2. Iterate through pascalreturn1, using appropriate kinematic equations to determine where
+#   2. Iterate, using appropriate kinematic equations to determine where
 #      pascal_class's coordinates are predicted to be located.
 #   3. Iterate through pascal_class, finding the closest subject of identical type.
 #   4. For each iteration, if the Euclidean distance between the two exceeds twice the
@@ -14,5 +12,5 @@ import cv2
 #      the hypotenuse of the bounding box, add to a tensor an increment of N.
 #   6. Using the tensor, alter the scores at line 24 of /models/components/proposal.py.
 
-def oldfunction(pascal_class, cls_dets, pascalreturn1, pascalreturn2):
+def oldfunction(pascal_class, cls_dets, pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4):
     return pascal_class
