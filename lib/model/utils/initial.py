@@ -17,8 +17,8 @@ def newfunction(f, x, i, a, k, y):
     lst2 = list(i)
     lst3 = list(f)
     lst4 = list(i)
-    f2 = 0
-    i2 = 0
+    f2 = 2
+    i2 = 2
     while lst[f2] != lst2[i2]:
        while lst[f2] < lst2[i2]:
           f2 = f2 + 1
@@ -41,11 +41,14 @@ def newfunction(f, x, i, a, k, y):
        igoogol = f2
        f2 = i2
        i2 = igoogol
+       agoogol = x
+       x = a
+       a = agoogol
        if icount % 2 == 1:
           oddnum = 1
     else:
        if fcount % 2 == 1:
           oddnum = 1
-    # At this point, lst3[f2] and lst4[i2] will store the starting location at which to compare
+    # At this point, x[f2] and a[i2] will store the starting location at which to compare
     # locations.
     return f, x, i, a
