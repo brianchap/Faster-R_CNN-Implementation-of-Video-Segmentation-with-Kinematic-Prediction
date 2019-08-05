@@ -190,9 +190,12 @@ if __name__ == '__main__':
         print("network is not defined")
         pdb.set_trace()
 
+    a = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
+    b = torch.Tensor(([0], [0]))
     v = torch.Tensor([[1]])
     w = torch.Tensor(([1]))
-    x = torch.Tensor(([0]))
+    x = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
+    y = torch.Tensor(([0], [0]))
     fasterRCNN.create_architecture()
 
     print("load checkpoint %s" % load_name)
@@ -411,13 +414,20 @@ if __name__ == '__main__':
                    print(pascal_classes[j])
                    print(j)
                    print(cls_dets.cpu().numpy())
-                   if v < 3:
+                   if v < 4:
                       if v == 1:
-                          pascalreturn1, pascalreturn2 = newfunction(pascal_classes[j], cls_dets.cpu)
+                          u = np.fromstring(pascal_classes[j], dtype=float, sep=' ')
+                          y = torch.cat((y.float(),torch.from_numpy(u).float()), 0)
+                          z = torch.cat((x,torch.from_numpy(cls_dets.cpu().numpy())), 0)
                       if v == 2:
-                          pascalreturn3, pascalreturn4 = newfunction2(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
+                          c = np.fromstring(pascal_classes[j], dtype=float, sep=' ')
+                          b = torch.cat((b.float(),torch.from_numpy(c).float()), 0)
+                          a = torch.cat((a,torch.from_numpy(cls_dets.cpu().numpy())), 0)
+                      if v == 3:
+                          pascalreturn1, pascalreturn2 = newfunction(z, y, b, a)
+                          pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
                    else:
-                      pascalreturn5 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn3, pascalreturn4)
+                      pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
                    print(v)
 
