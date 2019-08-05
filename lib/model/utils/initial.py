@@ -3,12 +3,12 @@ import numpy as np
 import cv2
 
 # newfunction should:
-#   1. Compare values stored in f and i, as well as x and a.
-#   2. Find the two subjects of minimal distance and calculate velocity. Remove them
-#      from the tensors/arrays. Add the velocity to a tensor (magnitude and direction). Add
-#      the pascal_class into an array.
+#   1. Compare values stored in f and i, as well as x and a and k and y.
+#   2. Find the two subjects of minimal distance and calculate velocity and acceleration.
+#      Remove them from the tensors/arrays. Add the velocity and acceleration to four tensors
+#      (vx, vy, ax, ay). Add the pascal_class into an array.
 #   3. Repeat step 2 until completed.
-#   4. Return the tensor and the array, one for velocities, the other for pascal_class.
+#   4. Return the tensors and the array.
 
-def newfunction(f, x, i, a):
-    return f, x
+def newfunction(f, x, i, a, k, y):
+    return f, x, i, a
