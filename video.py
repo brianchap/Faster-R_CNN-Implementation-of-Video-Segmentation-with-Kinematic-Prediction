@@ -28,7 +28,7 @@ from model.roi_layers import nms
 from model.rpn.bbox_transform import bbox_transform_inv
 from model.utils.net_utils import save_net, load_net, vis_detections, vis_detections_beautiful
 from model.utils.blob import im_list_to_blob
-from model.utils.initial import newfunction, newfunction2
+from model.utils.initial import newfunction
 from model.utils.continuous import oldfunction
 from model.faster_rcnn.vgg16 import vgg16
 from model.faster_rcnn.resnet import resnet
