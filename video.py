@@ -424,7 +424,7 @@ if __name__ == '__main__':
                           b = torch.cat((b.float(),torch.from_numpy(c).float()), 0)
                           a = torch.cat((a,torch.from_numpy(cls_dets.cpu().numpy())), 0)
                       if v == 3:
-                          pascalreturn1, pascalreturn2 = newfunction(z, y, b, a)
+                          pascalreturn1, pascalreturn2 = newfunction(y, x, b, a)
                           pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
                    else:
                       pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
