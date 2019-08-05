@@ -193,9 +193,11 @@ if __name__ == '__main__':
     a = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
     f = np.asarray([0, 0])
     i = np.asarray([0, 0])
+    k = np.asarray([0, 0])
     v = torch.Tensor([[1]])
     w = torch.Tensor(([1]))
     x = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
+    y = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
     fasterRCNN.create_architecture()
 
     print("load checkpoint %s" % load_name)
@@ -411,7 +413,7 @@ if __name__ == '__main__':
                 cls_dets = cls_dets[keep.view(-1).long()]
                 # add boxes to img
                 if vis:
-                   if v < 4:
+                   if v < 5:
                       if v == 1:
                           lst = list(f)
                           g = cls_dets.cpu().size()
@@ -435,10 +437,21 @@ if __name__ == '__main__':
                           print(i)
                           print(a)
                       if v == 3:
-                          pascalreturn1, pascalreturn2 = newfunction(f, x, i, a)
-                          pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu().numpy(), pascalreturn1, pascalreturn2)
+                          lst = list(k)
+                          g = cls_dets.cpu().size()
+                          h = g[0]
+                          while h > 0:
+                               lst.append(pascal_classes[j])
+                               h = h - 1
+                          k = np.asarray(lst)
+                          y = torch.cat((y,torch.from_numpy(cls_dets.cpu().numpy())), 0)
+                          print(k)
+                          print(y)
+                      if v == 4:
+                          pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4 = newfunction(f, x, i, a, k, y)
+                          pascalreturn5 = oldfunction(pascal_classes[j], cls_dets.cpu().numpy(), pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4)
                    else:
-                      pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
+                      pascalreturn5 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4)
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
                    print(v)
 
