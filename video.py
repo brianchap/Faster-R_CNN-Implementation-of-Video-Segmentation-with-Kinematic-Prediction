@@ -1,5 +1,3 @@
-# Consider uncommenting lines 145-146, 207-210, 273, 275-278, 325-327, 332-336, 344-346, 433, and 435-437 for enhanced efficiency.
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -30,6 +28,8 @@ from model.roi_layers import nms
 from model.rpn.bbox_transform import bbox_transform_inv
 from model.utils.net_utils import save_net, load_net, vis_detections, vis_detections_beautiful
 from model.utils.blob import im_list_to_blob
+from model.utils.initial import newfunction, newfunction2
+from model.utils.continuous import oldfunction
 from model.faster_rcnn.vgg16 import vgg16
 from model.faster_rcnn.resnet import resnet
 import pdb
@@ -190,6 +190,9 @@ if __name__ == '__main__':
         print("network is not defined")
         pdb.set_trace()
 
+    v = torch.Tensor([[1]])
+    w = torch.Tensor(([1]))
+    x = torch.Tensor(([0]))
     fasterRCNN.create_architecture()
 
     print("load checkpoint %s" % load_name)
@@ -405,8 +408,20 @@ if __name__ == '__main__':
                 cls_dets = cls_dets[keep.view(-1).long()]
                 # add boxes to img
                 if vis:
+                   print(pascal_classes[j])
+                   print(j)
+                   print(cls_dets.cpu().numpy())
+                   if v < 3:
+                      if v == 1:
+                          pascalreturn1, pascalreturn2 = newfunction(pascal_classes[j], cls_dets.cpu)
+                      if v == 2:
+                          pascalreturn3, pascalreturn4 = newfunction2(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
+                   else:
+                      pascalreturn5 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn3, pascalreturn4)
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
+                   print(v)
 
+        v = v + w
         misc_toc = time.time()
         nms_time = misc_toc - misc_tic
 
