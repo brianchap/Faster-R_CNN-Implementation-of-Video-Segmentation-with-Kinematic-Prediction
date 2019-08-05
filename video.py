@@ -191,11 +191,11 @@ if __name__ == '__main__':
         pdb.set_trace()
 
     a = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
-    b = torch.Tensor(([0], [0]))
+    f = np.asarray([0, 0])
+    i = np.asarray([0, 0])
     v = torch.Tensor([[1]])
     w = torch.Tensor(([1]))
     x = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
-    y = torch.Tensor(([0], [0]))
     fasterRCNN.create_architecture()
 
     print("load checkpoint %s" % load_name)
@@ -411,21 +411,32 @@ if __name__ == '__main__':
                 cls_dets = cls_dets[keep.view(-1).long()]
                 # add boxes to img
                 if vis:
-                   print(pascal_classes[j])
-                   print(j)
-                   print(cls_dets.cpu().numpy())
                    if v < 4:
                       if v == 1:
-                          u = np.fromstring(pascal_classes[j], dtype=float, sep=' ')
-                          y = torch.cat((y.float(),torch.from_numpy(u).float()), 0)
-                          z = torch.cat((x,torch.from_numpy(cls_dets.cpu().numpy())), 0)
+                          lst = list(f)
+                          g = cls_dets.cpu().size()
+                          h = g[0]
+                          while h > 0:
+                               lst.append(pascal_classes[j])
+                               h = h - 1
+                          f = np.asarray(lst)
+                          x = torch.cat((x,torch.from_numpy(cls_dets.cpu().numpy())), 0)
+                          print(f)
+                          print(x)
                       if v == 2:
-                          c = np.fromstring(pascal_classes[j], dtype=float, sep=' ')
-                          b = torch.cat((b.float(),torch.from_numpy(c).float()), 0)
+                          lst = list(i)
+                          g = cls_dets.cpu().size()
+                          h = g[0]
+                          while h > 0:
+                               lst.append(pascal_classes[j])
+                               h = h - 1
+                          i = np.asarray(lst)
                           a = torch.cat((a,torch.from_numpy(cls_dets.cpu().numpy())), 0)
+                          print(i)
+                          print(a)
                       if v == 3:
-                          pascalreturn1, pascalreturn2 = newfunction(y, x, b, a)
-                          pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
+                          pascalreturn1, pascalreturn2 = newfunction(f, x, i, a)
+                          pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu().numpy(), pascalreturn1, pascalreturn2)
                    else:
                       pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
