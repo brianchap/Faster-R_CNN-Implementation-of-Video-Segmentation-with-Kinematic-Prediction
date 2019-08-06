@@ -24,31 +24,36 @@ from models.components.proposal import scores
 ##############THIS FUNCTION IS BEING EDITED AT THE MOMENT##############
 def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1, pascalreturn2):
 
-    # N is the interval of extracted frames for correction
+    # predicted locations of all subjects after N frames
     pascal_predict = pascal_initial + pascalreturn1 * N
     g = 9.8
     pascal_predict[:,2] = pascal_class + 0.5 * g * square(N) 
     pascal_predict[:,4] = pascal_class + 0.5 * g * square(N) 
+    
+    class_predict = pascalreturn2
     num_predict = torch.zeros(len(list(pascalreturn2))
     num_gt = torch.zeros(len(list(cls_dets))
     dist = torch.zeros(len(list(pascalreturn2))
                      
-    for i in len(cls_dets):
+    for i in len(list(cls_dets)):
     # calculate the distance of the movement and find out the minium one
-        flag = 0
+        flag = 0 # for initializing the minimum distance
         num_gt[i] = i
-        for j in len(pascalreturn2):
+        for j in len(list(pascalreturn2)):
             if cls_dets[i] == pascalreturn2[j]:
                 flag = 1
                 bboxcenter1_x = 0.5 * (pascal_class[n,1] + pascal_class[n,3])
                 bboxcenter1_y = 0.5 * (pascal_class[n,2] + pascal_class[n,4])
                 bboxcenter2_x = 0.5 * (pascal_predict[n,1] + pascal_predict[n,3])
-                bboxcenter2_y = 0.5 * (pascal_predict[n,2] + pascal_predict[n,4])            
+                bboxcenter2_y = 0.5 * (pascal_predict[n,2] + pascal_predict[n,4])
+                # calculating the distance of the objects between the predict location and current location
                 dist = sqrt(square(bboxcenter2_x - bboxcenter1_x) + square(bboxcenter2_x - bboxcenter2_x)
+                # initializing the minimum distance
                 if flag == 1:
                     dist_min = dist
                     flag = 0
                     num_predict[i] = j
+                #upgrade the minimum distance of current object
                 if dist < dist_min:
                     num_predict[i] = j
                 dist[i] = dist_min
@@ -62,3 +67,5 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
             #score[i] = score - n
         if dist[i] < 0.5 * hypo:
             #score[]i = score - n
+
+return pascal_predit, 
