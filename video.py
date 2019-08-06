@@ -457,7 +457,7 @@ if __name__ == '__main__':
         if v == 3:
             pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
         if (v - 1) % 5 == 0:
-            pascalreturn4, pascalreturn5 = oldfunction(5, pascalreturn3, pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
+            pascalreturn4, pascalreturn5 = oldfunction(5, pascalreturn1, pascal_classes[j], cls_dets.cpu, pascalreturn2, pascalreturn3)
         v = v + w
         misc_toc = time.time()
         nms_time = misc_toc - misc_tic
