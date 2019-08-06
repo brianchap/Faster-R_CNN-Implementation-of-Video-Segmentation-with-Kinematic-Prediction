@@ -4,12 +4,12 @@ import cv2
 import torch
 import math
 
-# This function is incomplete. No class labels or accelerations are returned at this point.
+# This function is incomplete. No accelerations are returned at this point.
 
 def newfunction(f, x, i, a, k, y):
-  a1, a2, a3 = firstfunction(f, x, i, a)
-  a4, a5, a6 = firstfunction(i, a, k, y)
-  return a1, a2, f
+  a1, a2, a3, a4 = firstfunction(f, x, i, a)
+  a5, a6, a7, a8 = firstfunction(i, a, k, y)
+  return a1, a2, a4
 
 def firstfunction(f, x, i, a):
   happyFace = torch.Tensor(([[0, 0]]))
@@ -20,7 +20,7 @@ def firstfunction(f, x, i, a):
   cameramotion = 0
   plebian = 0
   pascalreturn1 = torch.Tensor(([0, 0, 0, 0], [0, 0, 0, 0]))
-  pascalreturn2 = np.array([0])
+  pascalreturn2 = np.array([])
   initia = torch.tensor(np.array([[0.0, 0.0]]))
   initiavel = torch.tensor(np.array([[0.0, 0.0]]))
   initiacel = torch.tensor(np.array([[0.0, 0.0]]))
@@ -86,8 +86,7 @@ def firstfunction(f, x, i, a):
     while fcount >= 0:
        abba = torch.tensor(np.array([[0.0, 0.0]]))
        metallica = torch.tensor(np.array([[0.0, 0.0]]))
-       labels1 = np.array([])
-       labels2 = np.array([])
+       labels1 = np.array([""])
        counter = 1
        while icount >= 0:
           midx = (x[f4][2] - x[f4][0])/2
@@ -98,16 +97,12 @@ def firstfunction(f, x, i, a):
           midy2 = (a[i4][3] - a[i4][1])/2
           temp2 = torch.Tensor(np.array([[midx2, midy2]]))
           metallica = torch.cat((metallica, temp2.double()), 0)
-          # lst99 = list(labels1)
-          # lst100 = list(labels2)
-          # if flipped == 1:
-             # lst99.append(lst4[i4])
-             # lst100.append(lst3[f4])
-          # else:
-             # lst99.append(lst3[f4])
-             # lst100.append(lst4[i4])
-          # labels1 = np.asarray(lst99)
-          # labels2 = np.asarray(lst100)
+          lst99 = list(labels1)
+          if flipped == 1:
+             lst99.append(lst4[i4])
+          else:
+             lst99.append(lst3[f4])
+          labels1 = np.asarray(lst99)
           deltax = midx2 - midx
           deltay = midy2 - midy
           if mode == 0:
@@ -146,6 +141,7 @@ def firstfunction(f, x, i, a):
           pairy2 = 10000
           storex = 10000
           storey = 10000
+          labels3 = ""
           while counter3 < temp3[0]:
              while counter4 < temp4[0]:
                 minx = (abba[counter3][0] - metallica[counter4][0])
@@ -163,6 +159,7 @@ def firstfunction(f, x, i, a):
                     pairy2 = metallica[counter4][1]
                     storex = counter3
                     storey = counter4
+                    labels3 = labels1[counter3]
                 counter4 = counter4 + 1
              counter3 = counter3 + 1
              counter4 = 0
@@ -172,14 +169,21 @@ def firstfunction(f, x, i, a):
           initiavel = torch.cat((initiavel, initially2.double()), 0)
           initially3 = torch.tensor(np.array([[pairx2, pairy2]]))
           bridge = torch.cat((bridge, initially3.double()), 0)
+
+          lst1000 = list(pascalreturn2)
+          lst1000.append(labels3)
+          pascalreturn2 = np.asarray(lst1000)
+
           c = abba.numpy()
           d = metallica.numpy()
           e = np.array([[pairx, pairy]])
-          f = np.array([[pairx2, pairy2]])
+          red = np.array([labels3])
+          f2000 = np.array([[pairx2, pairy2]])
           c = np.vstack(row for row in c if row not in e)
-          d = np.vstack(row for row in d if row not in f)
+          d = np.vstack(row for row in d if row not in f2000)
           abba = torch.Tensor(c)
           metallica = torch.Tensor(d)
+          labels1 = np.vstack(row for row in labels1 if row not in red)
           # abba = torch.cat([abba[0:counter3], abba[counter3+1:-1]])
           # abba = abba[abba!=counter3]
           # metallica = torch.cat([metallica[0:counter4], metallica[counter4+1:-1]])
@@ -240,4 +244,5 @@ def firstfunction(f, x, i, a):
   print("Positions:", initia)
   print("Velocities:", initiavel)
   print("References:", bridge)
-  return initia, initiavel, bridge
+  print("Labels:", pascalreturn2)
+  return initia, initiavel, bridge, pascalreturn2
