@@ -18,5 +18,6 @@ import cv2
 #   than half the hypotenuse of the bounding box, add to the score an increment of N.
 #   Scores to be altered are at line 24 of /models/components/proposal.py.
 
+##############THIS FUNCTION IS BEING EDITED AT THE MOMENT##############
 def oldfunction(pascal_class, cls_dets, pascalreturn1, pascalreturn2):
     np.asarray([0])
