@@ -4,6 +4,8 @@ import cv2
 from models.components.proposal import scores
 
 # Parameters are as follows:
+#   N:The interval between the extracted frames for correction
+#   pascal_initial: The initial location of all subjects detected in the first frame
 #   pascal_class: The locations of all subjects detected in the current frame
 #   cls_dets: The class labels of all subjects detected in the current frame
 #   pascalreturn1: A tensor of [vx, vy] for all subjects
@@ -20,10 +22,10 @@ from models.components.proposal import scores
 #   Scores to be altered are at line 24 of /models/components/proposal.py.
 
 ##############THIS FUNCTION IS BEING EDITED AT THE MOMENT##############
-def oldfunction(pascal_class, cls_dets, pascalreturn1, pascalreturn2):
+def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1, pascalreturn2):
 
     # N is the interval of extracted frames for correction
-    pascal_predict = pascal_class + pascalreturn1 * N
+    pascal_predict = pascal_initial + pascalreturn1 * N
     g = 9.8
     pascal_predict[:,2] = pascal_class + 0.5 * g * square(N) 
     pascal_predict[:,4] = pascal_class + 0.5 * g * square(N) 
@@ -57,6 +59,6 @@ def oldfunction(pascal_class, cls_dets, pascalreturn1, pascalreturn2):
     for i in len(list(num_gt):
         hypo = sqrt(square(pascal_class[i,3] - pascal_class[i,1]) + square(pascal_class[i,4] - pascal_class[i,2]))
         if dist[i] > 2 * hypo:
-            #score = score - N
+            #score[i] = score - n
         if dist[i] < 0.5 * hypo:
-            #score = score - N
+            #score[]i = score - n
