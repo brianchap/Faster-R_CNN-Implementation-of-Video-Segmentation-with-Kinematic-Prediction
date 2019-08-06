@@ -7,6 +7,7 @@ import cv2
 #   cls_dets: The class labels of all subjects detected in the current frame
 #   pascalreturn1: A tensor of [vx, vy] for all subjects
 #   pascalreturn2: The class labels of all subjects predicted
+#   NOTE: All locations/class labels for pascalreturn1 and pascalreturn2 start at index 1!
 
 # oldfunction should:
 #   Develop appropriate kinematic equations to determine where predicted locations are.
