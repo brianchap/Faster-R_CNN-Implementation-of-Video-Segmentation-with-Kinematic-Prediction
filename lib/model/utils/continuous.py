@@ -1,3 +1,4 @@
+
 import numpy as np
 # from scipy.misc import imread, imresize
 import cv2
@@ -31,9 +32,9 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
     pascal_predict[:,4] = pascal_class + 0.5 * g * square(N) 
     
     class_predict = pascalreturn2
-    num_predict = torch.zeros(len(list(pascalreturn2))
-    num_gt = torch.zeros(len(list(cls_dets))
-    dist = torch.zeros(len(list(pascalreturn2))
+    num_predict = torch.zeros(len(list(pascalreturn2)))
+    num_gt = torch.zeros(len(list(cls_dets)))
+    dist = torch.zeros(len(list(pascalreturn2)))
                      
     for i in len(list(cls_dets)):
     # calculate the distance of the movement and find out the minium one
@@ -47,7 +48,7 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
                 bboxcenter2_x = 0.5 * (pascal_predict[n,1] + pascal_predict[n,3])
                 bboxcenter2_y = 0.5 * (pascal_predict[n,2] + pascal_predict[n,4])
                 # calculating the distance of the objects between the predict location and current location
-                dist = sqrt(square(bboxcenter2_x - bboxcenter1_x) + square(bboxcenter2_x - bboxcenter2_x)
+                dist = sqrt(square(bboxcenter2_x - bboxcenter1_x) + square(bboxcenter2_x - bboxcenter2_x))
                 # initializing the minimum distance
                 if flag == 1:
                     dist_min = dist
@@ -61,11 +62,9 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
         i = i + 1
                         
     #calculate the hypotenuse of the bounding box
-    for i in len(list(num_gt):
+    for m in len(list(num_gt)):
         hypo = sqrt(square(pascal_class[i,3] - pascal_class[i,1]) + square(pascal_class[i,4] - pascal_class[i,2]))
-        if dist[i] > 2 * hypo:
+        if dist[m] > 2 * hypo:
             #score[i] = score - n
-        if dist[i] < 0.5 * hypo:
+        if dist[m] < 0.5 * hypo:
             #score[i] = score - n
-
-return pascal_predit, class_predict
