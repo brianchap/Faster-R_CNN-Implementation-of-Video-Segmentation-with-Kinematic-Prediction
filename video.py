@@ -451,13 +451,13 @@ if __name__ == '__main__':
                           print(k)
                           print(y)
                       if v == 4:
-                          pascalreturn4 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2, pascalreturn3)
+                          pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
                    else:
-                      pascalreturn4 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2, pascalreturn3)
+                      pascalreturn3 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
                    print(v)
         if v == 3:
-            pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
+            pascalreturn1, pascalreturn2 = newfunction(f, x, i, a, k, y)
         v = v + w
         misc_toc = time.time()
         nms_time = misc_toc - misc_tic
