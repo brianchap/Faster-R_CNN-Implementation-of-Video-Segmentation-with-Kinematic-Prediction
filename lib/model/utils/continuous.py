@@ -16,10 +16,15 @@ from models.components.proposal import scores
 # oldfunction should:
 #   Develop appropriate kinematic equations to determine where predicted locations are.
 #   Find the closest subject of identical type.
-#   If the Euclidean distance between the ground truth and predicted location exceeds
-#   twice the hypotenuse of the bounding box, subtract from the score a decrement of N.
-#   If the Euclidean distance between the ground truth and predicted location is less
-#   than half the hypotenuse of the bounding box, add to the score an increment of N.
+#   Create two arrays: prediction[] and actual[] 
+#   Arrays contain the midpoint of the hypotenuse of the bounding box
+#   Create variable confidence 
+#   Using the kinematic prediction model, store the predicted location (midpoint of hypotenuse of bounding box) into prediction[] 
+#   Using R-CNN, store ground truth location (midpoint of hypotenuse of bounding box) into actual[]
+#   Create array error[]
+#   For every value in prediction[] and actual[], calculate % error ( (actual - predicted value) / predicted value) ) and store into error[]
+#   Average all the values in error[] to get one number (variable named avgerror for example)
+#   Percentage of Confidence = 100 - (avgerror * 100) 
 #   Scores to be altered are at line 24 of /models/components/proposal.py.
 
 ##############THIS FUNCTION IS BEING EDITED AT THE MOMENT##############
