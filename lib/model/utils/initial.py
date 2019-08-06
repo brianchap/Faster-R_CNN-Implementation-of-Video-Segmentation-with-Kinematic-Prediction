@@ -89,12 +89,12 @@ def firstfunction(f, x, i, a):
             labels1 = np.array([""])
             counter = 1
             while icount >= 0:
-               midx = (x[f4][2] - x[f4][0])/2
-               midy = (x[f4][3] - x[f4][1])/2
+               midx = (x[f4][2] + x[f4][0])/2
+               midy = (x[f4][3] + x[f4][1])/2
                temp1 = torch.Tensor(np.array([[midx, midy]]))
                abba = torch.cat((abba, temp1.double()), 0)
-               midx2 = (a[i4][2] - a[i4][0])/2
-               midy2 = (a[i4][3] - a[i4][1])/2
+               midx2 = (a[i4][2] + a[i4][0])/2
+               midy2 = (a[i4][3] + a[i4][1])/2
                temp2 = torch.Tensor(np.array([[midx2, midy2]]))
                metallica = torch.cat((metallica, temp2.double()), 0)
                lst99 = list(labels1)

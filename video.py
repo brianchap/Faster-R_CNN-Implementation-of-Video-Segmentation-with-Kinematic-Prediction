@@ -418,8 +418,8 @@ if __name__ == '__main__':
                 cls_dets = cls_dets[keep.view(-1).long()]
                 # add boxes to img
                 if vis:
-                   if v < 4:
-                      if v == 1:
+                   if (v % 60) < 4:
+                      if (v % 60) == 1:
                           lst = list(f)
                           g = cls_dets.cpu().size()
                           h = g[0]
@@ -430,7 +430,7 @@ if __name__ == '__main__':
                           x = torch.cat((x,torch.from_numpy(cls_dets.cpu().numpy())), 0)
                           print(f)
                           print(x)
-                      if v == 2:
+                      if (v % 60) == 2:
                           lst = list(i)
                           g = cls_dets.cpu().size()
                           h = g[0]
@@ -441,7 +441,7 @@ if __name__ == '__main__':
                           a = torch.cat((a,torch.from_numpy(cls_dets.cpu().numpy())), 0)
                           print(i)
                           print(a)
-                      if v == 3:
+                      if (v % 60) == 3:
                           lst = list(k)
                           g = cls_dets.cpu().size()
                           h = g[0]
@@ -454,9 +454,9 @@ if __name__ == '__main__':
                           print(y)
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
                    print(v)
-        if v == 3:
+        if (v % 60) == 3:
             pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
-        if (v - 1) % 5 == 0:
+        if ((v % 60) - 1) % 5 == 0:
             pascalreturn4, pascalreturn5 = oldfunction(5, pascalreturn1, pascal_classes[j], cls_dets.cpu, pascalreturn2, pascalreturn3)
         v = v + w
         misc_toc = time.time()
