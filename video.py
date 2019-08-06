@@ -198,6 +198,9 @@ if __name__ == '__main__':
     w = torch.Tensor(([1]))
     x = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
     y = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
+    pascalreturn1 = torch.Tensor(([0, 0, 0, 0], [0, 0, 0, 0]))
+    pascalreturn2 = np.asarray([0])
+    pascalreturn3 = np.asarray([0])
     fasterRCNN.create_architecture()
 
     print("load checkpoint %s" % load_name)
@@ -448,13 +451,13 @@ if __name__ == '__main__':
                           print(k)
                           print(y)
                       if v == 4:
-                          pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4 = newfunction(f, x, i, a, k, y)
-                          pascalreturn5 = oldfunction(pascal_classes[j], cls_dets.cpu().numpy(), pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4)
+                          pascalreturn4 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2, pascalreturn3)
                    else:
-                      pascalreturn5 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4)
+                      pascalreturn4 = oldfunction(pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2, pascalreturn3)
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
                    print(v)
-
+        if v == 3:
+            pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
         v = v + w
         misc_toc = time.time()
         nms_time = misc_toc - misc_tic
