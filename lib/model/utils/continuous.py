@@ -66,7 +66,9 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
         hypo = sqrt(square(pascal_class[i,3] - pascal_class[i,1]) + square(pascal_class[i,4] - pascal_class[i,2]))
         if dist[m] > 2 * hypo:
             #score[i] = score - n
+            print ("!")
         if dist[m] < 0.5 * hypo:
             #score[i] = score - n
+            print ("!")
 
 return pascal_class, class_predict
