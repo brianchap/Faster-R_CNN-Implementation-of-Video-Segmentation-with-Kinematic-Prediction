@@ -2,15 +2,21 @@ import numpy as np
 # from scipy.misc import imread, imresize
 import cv2
 
-# oldfunction should:
-#   2. Iterate, using appropriate kinematic equations to determine where
-#      pascal_class's coordinates are predicted to be located.
-#   3. Iterate through pascal_class, finding the closest subject of identical type.
-#   4. For each iteration, if the Euclidean distance between the two exceeds twice the
-#      hypotenuse of the bounding box, add to a tensor a decrement of N.
-#   5. For each iteration, if the Euclidean distance between the two is less than half
-#      the hypotenuse of the bounding box, add to a tensor an increment of N.
-#   6. Using the tensor, alter the scores at line 24 of /models/components/proposal.py.
+# Parameters are as follows:
+#   pascal_class: The locations of all subjects detected in the current frame
+#   cls_dets: The class labels of all subjects detected in the current frame
+#   pascalreturn1: The locations of all subjects in the first frame
+#   pascalreturn2: A tensor of [vx, vy, ax, ay] for all subjects
+#   pascalreturn3: The class labels of all subjects predicted
 
-def oldfunction(pascal_class, cls_dets, pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4):
-    return pascal_class
+# oldfunction should:
+#   Develop appropriate kinematic equations to determine where predicted locations are.
+#   Find the closest subject of identical type.
+#   If the Euclidean distance between the ground truth and predicted location exceeds
+#   twice the hypotenuse of the bounding box, subtract from the score a decrement of N.
+#   If the Euclidean distance between the ground truth and predicted location is less
+#   than half the hypotenuse of the bounding box, add to the score an increment of N.
+#   Scores to be altered are at line 24 of /models/components/proposal.py.
+
+def oldfunction(pascal_class, cls_dets, pascalreturn1, pascalreturn2, pascalreturn3):
+    np.asarray([0])
