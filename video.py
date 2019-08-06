@@ -456,7 +456,7 @@ if __name__ == '__main__':
                    print(v)
         if v == 3:
             pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
-        if (v - 4) % 5 == 0:
+        if (v - 1) % 5 == 0:
             pascalreturn4, pascalreturn5 = oldfunction(5, pascalreturn3, pascal_classes[j], cls_dets.cpu, pascalreturn1, pascalreturn2)
         v = v + w
         misc_toc = time.time()
