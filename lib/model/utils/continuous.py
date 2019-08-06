@@ -66,6 +66,6 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
         if dist[i] > 2 * hypo:
             #score[i] = score - n
         if dist[i] < 0.5 * hypo:
-            #score[]i = score - n
+            #score[i] = score - n
 
 return pascal_predit, class_predict
