@@ -23,7 +23,7 @@ from models.components.proposal import scores
 
 ##############THIS FUNCTION IS BEING EDITED AT THE MOMENT##############
 def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1, pascalreturn2):
-
+    
     # predicted locations of all subjects after N frames
     pascal_predict = pascal_initial + pascalreturn1 * N
     g = 9.8
