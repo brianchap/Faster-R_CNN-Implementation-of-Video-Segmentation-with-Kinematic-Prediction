@@ -7,7 +7,7 @@ import math
 def newfunction(f, x, i, a, k, y):
   a1, a2, a3, a4 = firstfunction(f, x, i, a)
   a5, a6, a7, a8 = firstfunction(i, a, k, y)
-  return a2, a4
+  return a1, a2, a4
 
 def firstfunction(f, x, i, a):
    happyFace = torch.Tensor(([[0, 0]]))
