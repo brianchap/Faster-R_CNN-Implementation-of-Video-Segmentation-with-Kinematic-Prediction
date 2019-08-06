@@ -68,4 +68,4 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
         if dist[i] < 0.5 * hypo:
             #score[]i = score - n
 
-return pascal_predit, 
+return pascal_predit, class_predict
