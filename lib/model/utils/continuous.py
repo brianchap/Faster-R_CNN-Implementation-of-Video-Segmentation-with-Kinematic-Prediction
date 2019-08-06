@@ -5,9 +5,8 @@ import cv2
 # Parameters are as follows:
 #   pascal_class: The locations of all subjects detected in the current frame
 #   cls_dets: The class labels of all subjects detected in the current frame
-#   pascalreturn1: The locations of all subjects in the first frame
-#   pascalreturn2: A tensor of [vx, vy, ax, ay] for all subjects
-#   pascalreturn3: The class labels of all subjects predicted
+#   pascalreturn1: A tensor of [vx, vy] for all subjects
+#   pascalreturn2: The class labels of all subjects predicted
 
 # oldfunction should:
 #   Develop appropriate kinematic equations to determine where predicted locations are.
@@ -18,5 +17,5 @@ import cv2
 #   than half the hypotenuse of the bounding box, add to the score an increment of N.
 #   Scores to be altered are at line 24 of /models/components/proposal.py.
 
-def oldfunction(pascal_class, cls_dets, pascalreturn1, pascalreturn2, pascalreturn3):
+def oldfunction(pascal_class, cls_dets, pascalreturn1, pascalreturn2):
     np.asarray([0])
