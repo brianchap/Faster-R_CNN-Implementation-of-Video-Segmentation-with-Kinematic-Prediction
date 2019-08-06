@@ -1,6 +1,7 @@
 import numpy as np
 # from scipy.misc import imread, imresize
 import cv2
+from models.components.proposal import scores
 
 # Parameters are as follows:
 #   pascal_class: The locations of all subjects detected in the current frame
