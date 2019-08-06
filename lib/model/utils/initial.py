@@ -18,7 +18,7 @@ def firstfunction(f, x, i, a):
   cameramotion = 0
   plebian = 0
   pascalreturn1 = torch.Tensor(([0, 0, 0, 0], [0, 0, 0, 0]))
-  pascalreturn2 = np.array([])
+  pascalreturn2 = np.array([""])
   initia = torch.tensor(np.array([[0.0, 0.0]]))
   initiavel = torch.tensor(np.array([[0.0, 0.0]]))
   initiacel = torch.tensor(np.array([[0.0, 0.0]]))
