@@ -45,8 +45,8 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
             # while pascal_classcopy.size > 2:
             if 1 == 1:
                 counterinner = 0
-                distancemin = 10000
-                specialhypotenuse = 10000
+                distancemin = 100000
+                specialhypotenuse = 40000
                 outerx1 = torch.tensor([[0, 0, 0, 0, 0]])
                 print((cls_detscopy.size())[0])
                 while counterinner < pascal_classcopy.size:
