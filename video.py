@@ -458,6 +458,7 @@ if __name__ == '__main__':
                    if (v % 20 == 3) & (happenedonce == 0):
                       pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4, pascalreturn5 = newfunction(f, x, i, a, k, y)
                       happenedonce = 1
+                      tester = 4
                    if (v % 20 > 3):
                       pascalreturn6 = oldfunction(tester, pascalreturn1, pascal_classes[j], cls_dets.cpu(), pascalreturn2, pascalreturn3, pascalreturn4, pascalreturn5)
                       print(pascalreturn6)
