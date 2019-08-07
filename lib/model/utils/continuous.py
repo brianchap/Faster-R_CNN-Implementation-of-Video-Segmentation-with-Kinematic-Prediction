@@ -31,6 +31,7 @@ from models.components.proposal import scores
 def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1, pascalreturn2):
     
     # predicted locations of all subjects after N frames
+    pascal_class_tensor = torch.from_numpy(pascal_class)
     pascal_predict = pascal_initial + pascalreturn1 * N
     g = 9.8
     pascal_predict[:,2] = pascal_class + 0.5 * g * square(N) 
