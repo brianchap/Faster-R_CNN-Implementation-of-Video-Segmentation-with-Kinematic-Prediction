@@ -32,6 +32,7 @@ def oldfunction(interval, pascal_initial, pascal_classes, cls_dets, pascalreturn
     
     # predicted locations of all subjects after N frames
     N = interval
+    pascal_class_tensor = torch.from_numpy(pascal_class)
     pascal_predict = pascal_initial + pascalreturn1 * N
     g = 9.8
     pascal_predict[:,2] = pascal_classes + 0.5 * g * N**2 
