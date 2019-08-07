@@ -26,9 +26,11 @@ import math
 def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1, pascalreturn2, pascalreturn3, accels):
     counter = 1
     cls_dets2 = cls_dets
-    while counter < pascal_initial.size()[0]:
+    if pascal_initial.size()[0] > 2:
+      while counter < pascal_initial.size()[0]:
         predictx = pascal_initial[counter][0] + (pascalreturn1[counter][0] * interval)
         predicty = pascal_initial[counter][1] + (pascalreturn1[counter][1] * interval)
+        print(pascalreturn2)
         print("Without g:", predictx)
         if pascalreturn2[counter] == "bottle":
             predictx = predictx + (0.5 * accels[counter][0] * interval * interval)
@@ -96,5 +98,5 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
             if distancemin <= 2 * specialhypotenuse:
                 if distancemin >= specialhypotenuse/2:
                     print("Neither")
-        counter = counter + 1
+      counter = counter + 1
     return cls_dets2
