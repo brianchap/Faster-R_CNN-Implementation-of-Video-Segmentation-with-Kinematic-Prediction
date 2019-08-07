@@ -198,11 +198,12 @@ if __name__ == '__main__':
     w = torch.Tensor(([1]))
     x = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
     y = torch.Tensor(([0, 0, 0, 0, 0], [0, 0, 0, 0, 0]))
-    pascalreturn1 = torch.Tensor(([0, 0, 0, 0], [0, 0, 0, 0]))
-    pascalreturn2 = np.asarray([0])
-    pascalreturn3 = np.asarray([0])
+    pascalreturn1 = torch.Tensor(([0, 0], [0, 0]))
+    pascalreturn2 = torch.Tensor(([0, 0, 0, 0], [0, 0, 0, 0]))
+    pascalreturn3 = np.asarray([[]])
     pascalreturn4 = np.asarray([[]])
-    pascalreturn5 = np.asarray([[]])
+    pascalreturn5 = torch.tensor([[]])
+    tester = 4
     fasterRCNN.create_architecture()
 
     print("load checkpoint %s" % load_name)
@@ -399,6 +400,7 @@ if __name__ == '__main__':
         misc_tic = time.time()
         if vis:
             im2show = np.copy(frame_bgr)
+        happenedonce = 0
         for j in range(1, len(pascal_classes)):
             inds = torch.nonzero(scores[:, j] > thresh).view(-1)
             # if there is det
@@ -418,8 +420,8 @@ if __name__ == '__main__':
                 cls_dets = cls_dets[keep.view(-1).long()]
                 # add boxes to img
                 if vis:
-                   if (v % 60) < 4:
-                      if (v % 60) == 1:
+                   if v % 20 < 4:
+                      if v % 20 == 1:
                           lst = list(f)
                           g = cls_dets.cpu().size()
                           h = g[0]
@@ -430,7 +432,7 @@ if __name__ == '__main__':
                           x = torch.cat((x,torch.from_numpy(cls_dets.cpu().numpy())), 0)
                           print(f)
                           print(x)
-                      if (v % 60) == 2:
+                      if v % 20 == 2:
                           lst = list(i)
                           g = cls_dets.cpu().size()
                           h = g[0]
@@ -441,7 +443,7 @@ if __name__ == '__main__':
                           a = torch.cat((a,torch.from_numpy(cls_dets.cpu().numpy())), 0)
                           print(i)
                           print(a)
-                      if (v % 60) == 3:
+                      if v % 20 == 3:
                           lst = list(k)
                           g = cls_dets.cpu().size()
                           h = g[0]
@@ -452,12 +454,16 @@ if __name__ == '__main__':
                           y = torch.cat((y,torch.from_numpy(cls_dets.cpu().numpy())), 0)
                           print(k)
                           print(y)
+                   if (v % 20 == 3) & (happenedonce == 0):
+                      pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4 = newfunction(f, x, i, a, k, y)
+                      happenedonce = 1
+                   if (v % 20 > 3):
+                      pascalreturn5 = oldfunction(tester, pascalreturn1, pascal_classes[j], cls_dets.cpu(), pascalreturn2, pascalreturn3, pascalreturn4)
+                      cls_dets = pascalreturn5
+                      tester = tester + 1
+                   # BOXES ARE ADDED HERE!!!!!!!!!
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
                    print(v)
-        if (v % 60) == 3:
-            pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
-        if ((v % 60) - 1) % 5 == 0:
-            pascalreturn4, pascalreturn5 = oldfunction(5, pascalreturn1, pascal_classes[j], cls_dets.cpu, pascalreturn2, pascalreturn3)
         v = v + w
         misc_toc = time.time()
         nms_time = misc_toc - misc_tic
