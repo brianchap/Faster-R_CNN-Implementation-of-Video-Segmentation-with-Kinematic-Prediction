@@ -45,7 +45,7 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
                 counterinner = 0
                 distancemin = 100000
                 specialhypotenuse = 40000
-                outerx1 = torch.tensor([[0, 0, 0, 0, 0]])
+                outerx1 = torch.tensor([0, 0, 0, 0, 0])
                 print((cls_detscopy.size())[0])
                 while counterinner < pascal_classcopy.size:
                     if pascal_classcopy == pascalreturn2[counter]:
@@ -69,11 +69,11 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
                 if distancemin > 2 * specialhypotenuse:
                     counterly = 0
                     while counterly < (cls_dets2.size())[0]:
-                        if cls_dets2[counterly][0] == outerx1[0]:
-                            if cls_dets2[counterly][1] == outerx1[1]:
-                                if cls_dets2[counterly][2] == outerx1[2]:
-                                    if cls_dets2[counterly][3] == outerx1[3]:
-                                        if cls_dets2[counterly][4] == outerx1[4]:
+                        if cls_dets2[counterly][0] == outerx1[0].float():
+                            if cls_dets2[counterly][1] == outerx1[1].float():
+                                if cls_dets2[counterly][2] == outerx1[2].float():
+                                    if cls_dets2[counterly][3] == outerx1[3].float():
+                                        if cls_dets2[counterly][4] == outerx1[4].float():
                                             error = distancemin/1000
                                             cls_dets2[counterly][4] = cls_dets2[counterly][4] - error
                                             print("Actual Decrement")
@@ -82,11 +82,11 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
                 if distancemin < specialhypotenuse/2:
                     counteras = 0
                     while counteras < (cls_dets2.size())[0]:
-                        if cls_dets2[counteras][0] == outerx1[0]:
-                            if cls_dets2[counteras][1] == outerx1[1]:
-                                if cls_dets2[counteras][2] == outerx1[2]:
-                                    if cls_dets2[counteras][3] == outerx1[3]:
-                                        if cls_dets2[counteras][4] == outerx1[4]:
+                        if cls_dets2[counteras][0] == outerx1[0].float():
+                            if cls_dets2[counteras][1] == outerx1[1].float():
+                                if cls_dets2[counteras][2] == outerx1[2].float():
+                                    if cls_dets2[counteras][3] == outerx1[3].float():
+                                        if cls_dets2[counteras][4] == outerx1[4].float():
                                             improvement = 1 - (2*distancemin)/specialhypotenuse
                                             cls_dets2[counteras][4] = cls_dets2[counteras][4] + improvement
                                             if cls_dets2[counteras][4] > 1:
