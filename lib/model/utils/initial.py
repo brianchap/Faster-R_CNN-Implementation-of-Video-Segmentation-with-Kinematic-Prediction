@@ -13,6 +13,7 @@ def newfunction(f, x, i, a, k, y):
   counterlily = 1
   countermammoth = 1
   while (counterlily < (a3.size())[0]):
+      created = 0
       while (countermammoth < (a6.size())[0]):
          if (a3[counterlily][0] == a6[countermammoth][0]) & (a3[counterlily][1] == a6[countermammoth][1]) & (a4[counterlily] == a9[countermammoth]):
             a2[counterlily] = (a2[counterlily] + a7[countermammoth])/2
@@ -20,7 +21,11 @@ def newfunction(f, x, i, a, k, y):
             accely = a7[countermammoth][1] - a2[counterlily][1]
             tempblasphemy = torch.Tensor(np.array([[accelx, accely]]))
             pascalreturnzeroth = torch.cat((pascalreturnzeroth, tempblasphemy), 0)
+            created = 1
          countermammoth = countermammoth + 1
+      if created == 0:
+         tempblasphemy = torch.Tensor(np.array([[0, 0]]))
+         pascalreturnzeroth = torch.cat((pascalreturnzeroth, tempblasphemy), 0)
       counterlily = counterlily + 1
       countermammoth = 1
   return a1, a2, a4, a5, pascalreturnzeroth
