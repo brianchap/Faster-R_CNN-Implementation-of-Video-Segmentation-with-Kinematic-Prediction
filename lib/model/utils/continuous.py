@@ -2,7 +2,7 @@
 import numpy as np
 # from scipy.misc import imread, imresize
 import cv2
-from models.components.proposal import scores
+#from models.components.proposal import scores
 
 # Parameters are as follows:
 #   N:The interval between the extracted frames for correction
@@ -28,13 +28,14 @@ from models.components.proposal import scores
 #   Scores to be altered are at line 24 of /models/components/proposal.py.
 
 ##############THIS FUNCTION IS BEING EDITED AT THE MOMENT##############
-def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1, pascalreturn2):
+def oldfunction(interval, pascal_initial, pascal_classes, cls_dets, pascalreturn1, pascalreturn2):
     
     # predicted locations of all subjects after N frames
+    N = interval
     pascal_predict = pascal_initial + pascalreturn1 * N
     g = 9.8
-    pascal_predict[:,2] = pascal_class + 0.5 * g * square(N) 
-    pascal_predict[:,4] = pascal_class + 0.5 * g * square(N) 
+    pascal_predict[:,2] = pascal_classes + 0.5 * g * N**2 
+    pascal_predict[:,4] = pascal_classes + 0.5 * g * N**2
     
     class_predict = pascalreturn2
     num_predict = torch.zeros(len(list(pascalreturn2)))
