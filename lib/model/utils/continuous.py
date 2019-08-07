@@ -35,11 +35,12 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
         cls_detscopy = cls_dets
         # while pascal_classcopy.size > 2:
         if 1 == 1:
-            counterinner = (cls_detscopy.size())[0] - 1
+            counterinner = 0
             distancemin = 10000
             specialhypotenuse = 10000
             outerx1 = torch.tensor([[0, 0, 0, 0, 0]])
-            while counterinner > 0:
+            print((cls_detscopy.size())[0])
+            while counterinner < pascal_classcopy.size:
                 if pascal_classcopy[counterinner] == pascalreturn2[counter]:
                      xmid = (cls_detscopy[counterinner][2] + cls_detscopy[counterinner][0])/2
                      ymid = (cls_detscopy[counterinner][3] + cls_detscopy[counterinner][1])/2
@@ -52,7 +53,7 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
                          distancemin = valuevar
                          specialhypotenuse = hypotenuse
                          outerx1 = innerx1
-                counterinner = counterinner - 1
+                counterinner = counterinner + 1
             # cls_detscopy = np.vstack(row for row in cls_detscopy if row not in qwerty)
             # pascal_classcopy = np.vstack(row for row in pascal_classcopy if row not in asdfgh)
             if distancemin > 2 * specialhypotenuse:
@@ -71,5 +72,8 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
                        if cls_dets2[counteras][4] > 1:
                            cls_dets2[counteras][4] = 1
                 print("Increment")
+            if distancemin < 2 * specialhypotenuse:
+                if distancemin < specialhypotenuse/2:
+                    print("Neither")
         counter = counter + 1
     return cls_dets2
