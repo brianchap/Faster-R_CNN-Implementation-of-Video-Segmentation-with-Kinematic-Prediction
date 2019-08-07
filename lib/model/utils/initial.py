@@ -53,12 +53,19 @@ def firstfunction(f, x, i, a):
       return initia, initiavel, bridge, pascalreturn2, pascalreturn3
   angry = f.size
   reallyangry = i.size
+  broken = 0
   while lst[f2] != lst2[i2]:
        while lst[f2] < lst2[i2]:
           f2 = f2 + 1
+          if f2 >= f.size:
+              broken = 1
+              break
        while lst[f2] > lst2[i2]:
           i2 = i2 + 1
-  while (f2 < angry) & (i2 < reallyangry):
+          if i2 >= i.size:
+              broken = 1
+              break
+  while (f2 < angry) & (i2 < reallyangry) & (broken == 0):
     g = torch.Tensor(([[0, 0]]))
     f3 = f2
     i3 = i2
@@ -241,11 +248,19 @@ def firstfunction(f, x, i, a):
         x = a
         a = agoogol
     if (f2 < angry) & (i2 < reallyangry):
-       while lst[f2] != lst2[i2]:
-          while lst[f2] < lst2[i2]:
+       while (broken == 0) & (lst[f2] != lst2[i2]):
+          while (broken == 0) & (lst[f2] < lst2[i2]):
              f2 = f2 + 1
-          while lst[f2] > lst2[i2]:
+             if f2 >= f.size:
+              broken = 1
+              break
+          while (broken == 0) & (lst[f2] > lst2[i2]):
              i2 = i2 + 1
+             if i2 >= i.size:
+              broken = 1
+              break
+          if (f2 >= angry) | (i2 >= reallyangry):
+              break
     counter2 = 1
     while counter2 < size:
       if g[counter2][0] < 5:
