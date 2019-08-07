@@ -203,6 +203,7 @@ if __name__ == '__main__':
     pascalreturn3 = np.asarray([[]])
     pascalreturn4 = np.asarray([[]])
     pascalreturn5 = torch.tensor([[]])
+    pascalreturn6 = torch.tensor([[]])
     tester = 4
     fasterRCNN.create_architecture()
 
@@ -455,12 +456,12 @@ if __name__ == '__main__':
                           print(k)
                           print(y)
                    if (v % 20 == 3) & (happenedonce == 0):
-                      pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4 = newfunction(f, x, i, a, k, y)
+                      pascalreturn1, pascalreturn2, pascalreturn3, pascalreturn4, pascalreturn5 = newfunction(f, x, i, a, k, y)
                       happenedonce = 1
                    if (v % 20 > 3):
-                      pascalreturn5 = oldfunction(tester, pascalreturn1, pascal_classes[j], cls_dets.cpu(), pascalreturn2, pascalreturn3, pascalreturn4)
-                      print(pascalreturn5)
-                      cls_dets = pascalreturn5
+                      pascalreturn6 = oldfunction(tester, pascalreturn1, pascal_classes[j], cls_dets.cpu(), pascalreturn2, pascalreturn3, pascalreturn4, pascalreturn5)
+                      print(pascalreturn6)
+                      cls_dets = pascalreturn6
                       tester = tester + 1
                    # BOXES ARE ADDED HERE!!!!!!!!!
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
