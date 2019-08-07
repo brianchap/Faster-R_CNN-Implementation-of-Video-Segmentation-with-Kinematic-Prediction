@@ -35,8 +35,8 @@ def oldfunction(interval, pascal_initial, pascal_classes, cls_dets, pascalreturn
     pascal_class_tensor = torch.from_numpy(pascal_class)
     pascal_predict = pascal_initial + pascalreturn1 * N
     g = 9.8
-    pascal_predict[:,2] = pascal_classes + 0.5 * g * N**2 
-    pascal_predict[:,4] = pascal_classes + 0.5 * g * N**2
+    pascal_predict[:,2] = pascal_class_tensor + 0.5 * g * N**2 
+    pascal_predict[:,4] = pascal_class_tensor + 0.5 * g * N**2
     
     class_predict = pascalreturn2
     num_predict = torch.zeros(len(list(pascalreturn2)))
@@ -50,8 +50,8 @@ def oldfunction(interval, pascal_initial, pascal_classes, cls_dets, pascalreturn
         for j in len(list(pascalreturn2)):
             if cls_dets[i] == pascalreturn2[j]:
                 flag = 1
-                bboxcenter1_x = 0.5 * (pascal_class[n,1] + pascal_class[n,3])
-                bboxcenter1_y = 0.5 * (pascal_class[n,2] + pascal_class[n,4])
+                bboxcenter1_x = 0.5 * (pascal_class_tensor[n,1] + pascal_class_tensor[n,3])
+                bboxcenter1_y = 0.5 * (pascal_class_tensor[n,2] + pascal_class_tensor[n,4])
                 bboxcenter2_x = 0.5 * (pascal_predict[n,1] + pascal_predict[n,3])
                 bboxcenter2_y = 0.5 * (pascal_predict[n,2] + pascal_predict[n,4])
                 # calculating the distance of the objects between the predict location and current location
@@ -78,4 +78,4 @@ def oldfunction(interval, pascal_initial, pascal_classes, cls_dets, pascalreturn
             #score[i] = score - n
             print ("!")
 
-    return pascal_class, class_predict
+    return pascal_class_tensor, class_predict
