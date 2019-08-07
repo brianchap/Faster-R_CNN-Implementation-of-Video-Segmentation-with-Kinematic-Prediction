@@ -459,6 +459,7 @@ if __name__ == '__main__':
                       happenedonce = 1
                    if (v % 20 > 3):
                       pascalreturn5 = oldfunction(tester, pascalreturn1, pascal_classes[j], cls_dets.cpu(), pascalreturn2, pascalreturn3, pascalreturn4)
+                      print(pascalreturn5)
                       cls_dets = pascalreturn5
                       tester = tester + 1
                    # BOXES ARE ADDED HERE!!!!!!!!!
