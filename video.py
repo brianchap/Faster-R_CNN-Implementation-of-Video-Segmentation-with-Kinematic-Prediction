@@ -1,38 +1,37 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+from __future__ import absolute_import, division, print_function
 
-import _init_paths
-import os
-import sys
-import numpy as np
 import argparse
-import pprint
+import os
 import pdb
+import pprint
+import sys
 import time
+
 import cv2
+import numpy as np
 import torch
-from torch.autograd import Variable
 import torch.nn as nn
 import torch.optim as optim
-
-import torchvision.transforms as transforms
 import torchvision.datasets as dset
+import torchvision.transforms as transforms
 from scipy.misc import imread
-from roi_data_layer.roidb import combined_roidb
-from roi_data_layer.roibatchLoader import roibatchLoader
-from model.utils.config import cfg, cfg_from_file, cfg_from_list, get_output_dir
-from model.rpn.bbox_transform import clip_boxes
+from torch.autograd import Variable
+
+import _init_paths
+from model.faster_rcnn.resnet import resnet
+from model.faster_rcnn.vgg16 import vgg16
 # from model.nms.nms_wrapper import nms
 from model.roi_layers import nms
-from model.rpn.bbox_transform import bbox_transform_inv
-from model.utils.net_utils import save_net, load_net, vis_detections, vis_detections_beautiful
+from model.rpn.bbox_transform import bbox_transform_inv, clip_boxes
 from model.utils.blob import im_list_to_blob
-from model.utils.initial import newfunction
+from model.utils.config import (cfg, cfg_from_file, cfg_from_list,
+                                get_output_dir)
 from model.utils.continuous import oldfunction
-from model.faster_rcnn.vgg16 import vgg16
-from model.faster_rcnn.resnet import resnet
-import pdb
+from model.utils.initial import newfunction
+from model.utils.net_utils import (load_net, save_net, vis_detections,
+                                   vis_detections_beautiful)
+from roi_data_layer.roibatchLoader import roibatchLoader
+from roi_data_layer.roidb import combined_roidb
 
 
 def parse_args():
@@ -359,6 +358,7 @@ if __name__ == '__main__':
         # print('GPU memery used: %.10f G' % (meminfo.used / (1024 * 1024 * 1024)), 'after go in net', num_images+1)
 
         scores = cls_prob.data
+        #print (scores)
         boxes = rois.data[:, :, 1:5]
 
         if cfg.TEST.BBOX_REG:
@@ -397,6 +397,7 @@ if __name__ == '__main__':
         det_toc = time.time()
         detect_time = det_toc - det_tic
         misc_tic = time.time()
+
         if vis:
             im2show = np.copy(frame_bgr)
         for j in range(1, len(pascal_classes)):
@@ -428,8 +429,8 @@ if __name__ == '__main__':
                                h = h - 1
                           f = np.asarray(lst)
                           x = torch.cat((x,torch.from_numpy(cls_dets.cpu().numpy())), 0)
-                          print(f)
-                          print(x)
+                          print (f)
+                          print (x)
                       if (v % 60) == 2:
                           lst = list(i)
                           g = cls_dets.cpu().size()
@@ -439,8 +440,8 @@ if __name__ == '__main__':
                                h = h - 1
                           i = np.asarray(lst)
                           a = torch.cat((a,torch.from_numpy(cls_dets.cpu().numpy())), 0)
-                          print(i)
-                          print(a)
+                          print (i)
+                          print (a)
                       if (v % 60) == 3:
                           lst = list(k)
                           g = cls_dets.cpu().size()
@@ -450,14 +451,14 @@ if __name__ == '__main__':
                                h = h - 1
                           k = np.asarray(lst)
                           y = torch.cat((y,torch.from_numpy(cls_dets.cpu().numpy())), 0)
-                          print(k)
-                          print(y)
+                          print (k)
+                          print (y)
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
-                   print(v)
-        if (v % 60) == 3:
-            pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
-        if ((v % 60) - 1) % 5 == 0:
-            pascalreturn4, pascalreturn5 = oldfunction(5, pascalreturn1, pascal_classes[j], cls_dets.cpu, pascalreturn2, pascalreturn3)
+                   print (v)
+                if (v % 60) == 3:
+                    pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
+                if ((v % 60) - 1) % 3 == 0:
+                    pascalreturn4, pascalreturn5 = oldfunction(5, pascal_classes[j], cls_dets, pascalreturn3)
         v = v + w
         misc_toc = time.time()
         nms_time = misc_toc - misc_tic

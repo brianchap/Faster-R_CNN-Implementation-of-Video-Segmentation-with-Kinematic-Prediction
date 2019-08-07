@@ -5,9 +5,9 @@ import torch
 import math
 
 def newfunction(f, x, i, a, k, y):
-  a1, a2, a3, a4 = firstfunction(f, x, i, a)
-  a5, a6, a7, a8 = firstfunction(i, a, k, y)
-  return a1, a2, a4
+   a1, a2, a3, a4 = firstfunction(f, x, i, a)
+   a5, a6, a7, a8 = firstfunction(i, a, k, y)
+   return a1, a2, a4
 
 def firstfunction(f, x, i, a):
    happyFace = torch.Tensor(([[0, 0]]))
@@ -241,8 +241,10 @@ def firstfunction(f, x, i, a):
                silly = torch.tensor(np.array([[happyFaceX, happyFaceY]]))
                initiavel = initiavel - silly.double()
                countercounter = countercounter + 1
+      arr = [""]
+      arr.append(pascalreturn2)
       print("Positions:", initia)
       print("Velocities:", initiavel)
       print("References:", bridge)
-      print("Labels:", pascalreturn2)
-      return initia, initiavel, bridge, pascalreturn2
+      print("Labels:", arr)
+      return initia, initiavel, bridge, arr

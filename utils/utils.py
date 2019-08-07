@@ -19,10 +19,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from mrcnn.structs.detection_output import DetectionOutput
-from mrcnn.utils.exceptions import NoBoxHasPositiveArea
-from mrcnn.utils.image_metas import ImageMetas
-from tools.config import Config
+from structs.detection_output import DetectionOutput
+from utils.exceptions import NoBoxHasPositiveArea
+from utils.image_metas import ImageMetas
+#from tools.config import Config
 
 
 ############################################################
