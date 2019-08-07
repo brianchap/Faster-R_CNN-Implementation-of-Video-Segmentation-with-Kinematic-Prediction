@@ -23,15 +23,19 @@ import math
 #   Scores to be altered are at line 24 of /models/components/proposal.py.
 
 ##############THIS FUNCTION IS BEING EDITED AT THE MOMENT##############
-def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1, pascalreturn2, pascalreturn3):
+def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1, pascalreturn2, pascalreturn3, accels):
     counter = 1
     cls_dets2 = cls_dets
     while counter < pascal_initial.size()[0]:
         predictx = pascal_initial[counter][0] + (pascalreturn1[counter][0] * interval)
         predicty = pascal_initial[counter][1] + (pascalreturn1[counter][1] * interval)
+        print("Without g:", predictx)
+        if pascalreturn2[counter] == "bottle":
+            predictx = predictx + (0.5 * accels[counter][0] * interval * interval)
+        print(predictx)
         print("Without g:", predicty)
-        # if pascalreturn2[counter] == "bottle":
-            # predicty = predicty - (23.33 * pascalreturn3[counter] * interval * interval)
+        if pascalreturn2[counter] == "bottle":
+            predicty = predicty + (0.5 * accels[counter][1] * interval * interval)
         print(predicty)
         pascal_classcopy = pascal_class
         cls_detscopy = cls_dets
