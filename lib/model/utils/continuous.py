@@ -33,12 +33,10 @@ def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1,
             predicty = pascal_initial[counter][1] + (pascalreturn1[counter][1] * interval)
             print(pascalreturn2)
             print("Without g:", predictx)
-            if pascalreturn2[counter] == "bottle":
-                predictx = predictx + (0.5 * accels[counter][0] * interval * interval)
+            predictx = predictx + (0.5 * accels[counter][0] * interval * interval)
             print(predictx)
             print("Without g:", predicty)
-            if pascalreturn2[counter] == "bottle":
-                predicty = predicty + (0.5 * accels[counter][1] * interval * interval)
+            predicty = predicty + (0.5 * accels[counter][1] * interval * interval)
             print(predicty)
             pascal_classcopy = pascal_class
             cls_detscopy = cls_dets
