@@ -1,17 +1,14 @@
-
 import numpy as np
-import torch
 # from scipy.misc import imread, imresize
 import cv2
+import torch
 import math
-#from models.components.proposal import scores
-#from video import cls_dets
 
 # Parameters are as follows:
 #   N:The interval between the extracted frames for correction
 #   pascal_initial: The initial location of all subjects detected in the first frame
-#   pascal_class: The locations of all subjects detected in the current frame
-#   cls_dets: The class labels of all subjects detected in the current frame
+#   cls_dets: The locations of all subjects detected in the current frame
+#   pascal_class: The class labels of all subjects detected in the current frame
 #   pascalreturn1: A tensor of [vx, vy] for all subjects
 #   pascalreturn2: The class labels of all subjects
 #   NOTE: All locations/class labels for pascalreturn1 and pascalreturn2 start at index 1!
@@ -19,181 +16,86 @@ import math
 # oldfunction should:
 #   Develop appropriate kinematic equations to determine where predicted locations are.
 #   Find the closest subject of identical type.
-#   Create two arrays: prediction[] and actual[] 
-#   Arrays contain the midpoint of the hypotenuse of the bounding box
-#   Create variable confidence 
-#   Using the kinematic prediction model, store the predicted location (midpoint of hypotenuse of bounding box) into prediction[] 
-#   Using R-CNN, store ground truth location (midpoint of hypotenuse of bounding box) into actual[]
-#   Create array error[]
-#   For every value in prediction[] and actual[], calculate % error ( (actual - predicted value) / predicted value) ) and store into error[]
-#   Average all the values in error[] to get one number (variable named avgerror for example)
-#   Percentage of Confidence = 100 - (avgerror * 100) 
+#   If the Euclidean distance between the ground truth and predicted location exceeds
+#   twice the hypotenuse of the bounding box, subtract from the score a decrement of N.
+#   If the Euclidean distance between the ground truth and predicted location is less
+#   than half the hypotenuse of the bounding box, add to the score an increment of N.
 #   Scores to be altered are at line 24 of /models/components/proposal.py.
 
 ##############THIS FUNCTION IS BEING EDITED AT THE MOMENT##############
-
-
-
-oldmidx = -1
-oldmidy = -1
-
-olddmidx = -1
-olddmidy = -1
-
-vx = -1
-vy = -1
-
-oldvx = 0
-oldvy = 0
-
-ax = -1
-ay = -1
-
-objtru = -1
-
-t = 1
-
-def oldfunction(interval, pascal_classes, cls_dets, pascalreturn3):
-    
-    global oldmidx, oldmidy, olddmidx, olddmidy, vx, vy, oldvx, oldvy, ax, ay, objtru, t
-
-    # predicted locations of all subjects after N frames
-    num_predict = torch.zeros(len(list(pascal_classes)))
-    class_predict = pascalreturn3
-    N = interval
-    
-
-    x1 = cls_dets[0][0]
-    y1 = cls_dets[0][1]
-    x2 = cls_dets[0][2]
-    y2 = cls_dets[0][3]
-    prob = cls_dets[0][4]
-    center = torch.tensor(np.array([[0.0, 0.0]]))
-
-    midx = (x1 + x2)/2
-    midy = (y1 + y2)/2
-    print ("mid =")
-    print (midx)
-    print (midy)
-    temp = torch.Tensor(np.array([[midx, midy]]))
-    center = torch.cat((center, temp.double()), 0)  
-
-    if (oldmidx == -1) | (oldmidy == -1):
-        vx = -1
-        vy = -1
-        objtru = -1
-    else:
-        vx = (midx - oldmidx)
-        vy = (midy- oldmidy)
-        objtru = 1
-        print ("v =")
-        print (vx)
-        print (vy)
-
-    if ((oldvx == -1) and (oldvy == -1)) or ((vx == -1) and (vy == -1)):
-        ax = 0
-        ay = 0
-        print ("a =")
-        print (ax)
-        print (ay)
-    else:
-        ax = (vx - oldvx)
-        ay = (vy - oldvy)
-        print ("a =")
-        print (ax)
-        print (ay)
-
-
-    if (objtru == 1):
-    
-        for i in range(len(list(pascal_classes))):
-            print ("wow")
-            print (pascal_classes[i])
-            flag = 0
-            for j in range(len(list(pascalreturn3))):
-                print ("whoa")
-                print (pascalreturn3[j])
-                if pascalreturn3[0:i] == pascal_classes[0:j]:
-                    print ("nice")
-                    flag = 1
-                    predx = (ax/2)*(t**2) + oldvx*(t) + oldmidx
-                    predy = (ay/2)*(t**2) + oldvy*(t) + oldmidy
-                    print ("pred =")
-                    print (predx)
-                    print (predy)
-                    dist = math.sqrt(((predx - midx)**2) + ((predy - midy)**2))
-                    print ("dist =")
-                    print (dist)
-                    if flag == 1:
-                        dist_min = dist
-                        flag = 0
-                        num_predict[i] = j
-                    if dist < dist_min:
-                        num_predict[i] = j
-                    dist = dist_min
-        objtru = -1
-    
-
-    # g = cls_dets.cpu().size()
-    # h = g[0]
-    # while h > 0:
-    #     lst.append(pascal_classes[j])
-    #     h = h - 1
-    
-    #pascal_class_tensor = torch.from_numpy(pascal_class)
-    # pascal_predict = pascal_initial + pascalreturn1 * N
-    # g = 9.8
-    # pascal_predict[:,2] = pascal_class_tensor + (0.5 * g * N**2)
-    # pascal_predict[:,4] = pascal_class_tensor + (0.5 * g * N**2)
-    # class_predict = pascalreturn2
-    # num_predict = torch.zeros(len(list(pascalreturn2)))
-    # num_gt = torch.zeros(len(list(cls_dets)))
-    # dist = torch.zeros(len(list(pascalreturn2)))
-                     
-    # for i in len(list(cls_dets)):
-    # # calculate the distance of the movement and find out the minium one
-    #     flag = 0 # for initializing the minimum distance
-    #     num_gt[i] = i
-    #     for j in len(list(pascalreturn2)):
-    #         if cls_dets[i] == pascalreturn2[j]:
-    #             flag = 1
-    #             bboxcenter1_x = 0.5 * (pascal_class_tensor[n,1] + pascal_class_tensor[n,3])
-    #             bboxcenter1_y = 0.5 * (pascal_class_tensor[n,2] + pascal_class_tensor[n,4])
-    #             bboxcenter2_x = 0.5 * (pascal_predict[n,1] + pascal_predict[n,3])
-    #             bboxcenter2_y = 0.5 * (pascal_predict[n,2] + pascal_predict[n,4])
-    #             # calculating the distance of the objects between the predict location and current location
-    #             dist = sqrt(square(bboxcenter2_x - bboxcenter1_x) + square(bboxcenter2_x - bboxcenter2_x))
-    #             # initializing the minimum distance
-    #             if flag == 1:
-    #                 dist_min = dist
-    #                 flag = 0
-    #                 num_predict[i] = j
-    #             #upgrade the minimum distance of current object
-    #             if dist < dist_min:
-    #                 num_predict[i] = j
-    #             dist[i] = dist_min
-    #         j = j + 1
-    #     i = i + 1
-                        
-    # #calculate the hypotenuse of the bounding box
-    # for m in len(list(num_gt)):
-    #     hypo = sqrt(square(pascal_class[i,3] - pascal_class[i,1]) + square(pascal_class[i,4] - pascal_class[i,2]))
-    #     if dist[m] > 2 * hypo:
-    #         #score[i] = score - n
-    #         print ("!")
-    #     if dist[m] < 0.5 * hypo:
-    #         #score[i] = score - n
-    #         print ("!")
-
-
-    oldmidx = midx
-    oldmidy = midy
-
-    olddmidx = oldmidx
-    olddmidy = oldmidy
-
-    oldvx = vx
-    oldvy = vy
-
-    return center, class_predict
-    #return 0, 0
+def oldfunction(interval, pascal_initial, pascal_class, cls_dets, pascalreturn1, pascalreturn2, pascalreturn3, accels):
+    counter = 1
+    cls_dets2 = cls_dets
+    if pascal_initial.size()[0] > 2:
+        while counter < pascal_initial.size()[0]:
+            print("Counter:", counter)
+            predictx = pascal_initial[counter][0] + (pascalreturn1[counter][0] * interval)
+            predicty = pascal_initial[counter][1] + (pascalreturn1[counter][1] * interval)
+            print(pascalreturn2)
+            print("Without g:", predictx)
+            predictx = predictx + (0.5 * accels[counter][0] * interval * interval)
+            print(predictx)
+            print("Without g:", predicty)
+            predicty = predicty + (0.5 * accels[counter][1] * interval * interval)
+            print(predicty)
+            pascal_classcopy = pascal_class
+            cls_detscopy = cls_dets
+            # while pascal_classcopy.size > 2:
+            if 1 == 1:
+                counterinner = 0
+                distancemin = 100000
+                specialhypotenuse = 40000
+                outerx1 = torch.tensor([0, 0, 0, 0, 0])
+                print((cls_detscopy.size())[0])
+                while counterinner < pascal_classcopy.size:
+                    if pascal_classcopy == pascalreturn2[counter]:
+                        xmid = (cls_detscopy[counterinner][2] + cls_detscopy[counterinner][0])/2
+                        ymid = (cls_detscopy[counterinner][3] + cls_detscopy[counterinner][1])/2
+                        deltax = cls_detscopy[counterinner][2] - cls_detscopy[counterinner][0]
+                        deltay = cls_detscopy[counterinner][3] - cls_detscopy[counterinner][1]
+                        innerx1 = cls_detscopy[counterinner]
+                        hypotenuse = math.sqrt(math.pow(deltax, 2) + math.pow(deltay, 2))
+                        valuevar = math.sqrt(math.pow(xmid - predictx, 2) + math.pow(ymid - predicty, 2))
+                        print(valuevar)
+                        if distancemin > valuevar:
+                            distancemin = valuevar
+                            specialhypotenuse = hypotenuse
+                            outerx1 = innerx1
+                    counterinner = counterinner + 1
+                # cls_detscopy = np.vstack(row for row in cls_detscopy if row not in qwerty)
+                # pascal_classcopy = np.vstack(row for row in pascal_classcopy if row not in asdfgh)
+                print("DistanceMin:", distancemin)
+                print("Hypotenuse:", specialhypotenuse)
+                if distancemin > 2 * specialhypotenuse:
+                    counterly = 0
+                    while counterly < (cls_dets2.size())[0]:
+                        if cls_dets2[counterly][0] == outerx1[0].float():
+                            if cls_dets2[counterly][1] == outerx1[1].float():
+                                if cls_dets2[counterly][2] == outerx1[2].float():
+                                    if cls_dets2[counterly][3] == outerx1[3].float():
+                                        if cls_dets2[counterly][4] == outerx1[4].float():
+                                            error = distancemin/1000
+                                            cls_dets2[counterly][4] = cls_dets2[counterly][4] - error
+                                            print("Actual Decrement")
+                        counterly = counterly + 1
+                        print("Decrement")
+                if distancemin < specialhypotenuse/2:
+                    counteras = 0
+                    while counteras < (cls_dets2.size())[0]:
+                        if cls_dets2[counteras][0] == outerx1[0].float():
+                            if cls_dets2[counteras][1] == outerx1[1].float():
+                                if cls_dets2[counteras][2] == outerx1[2].float():
+                                    if cls_dets2[counteras][3] == outerx1[3].float():
+                                        if cls_dets2[counteras][4] == outerx1[4].float():
+                                            improvement = 1 - (2*distancemin)/specialhypotenuse
+                                            cls_dets2[counteras][4] = cls_dets2[counteras][4] + improvement
+                                            if cls_dets2[counteras][4] > 1:
+                                                cls_dets2[counteras][4] = 1
+                                            print("Actual Increment")
+                        counteras = counteras + 1
+                        print("Increment")
+                if distancemin <= 2 * specialhypotenuse:
+                    if distancemin >= specialhypotenuse/2:
+                        print("Neither")
+            counter = counter + 1
+    return cls_dets2
