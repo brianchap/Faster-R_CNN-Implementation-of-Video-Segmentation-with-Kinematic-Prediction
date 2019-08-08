@@ -4,8 +4,6 @@ import cv2
 import torch
 import math
 
-# This function is incomplete. No accelerations are returned at this point.
-
 def newfunction(f, x, i, a, k, y):
   pascalreturnzeroth = torch.Tensor([[0, 0]])
   a1, a2, a3, a4, a5 = firstfunction(f, x, i, a)

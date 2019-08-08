@@ -1,5 +1,5 @@
 
-from mrcnn.structs.tensor_container import TensorContainer
+from structs.tensor_container import TensorContainer
 
 
 class DetectionOutput(TensorContainer):

@@ -1,11 +1,11 @@
 
-from mrcnn.models.components.nms import nms_wrapper  # pylint: disable=E0611
-from mrcnn.utils import utils
-from tools.config import Config
-from tools.time_profiling import profilable
+#from models.components.nms import nms_wrapper  # pylint: disable=E0611
+from utils import utils
+#from tools.config import Config
+#from tools.time_profiling import profilable
 
 
-@profilable
+#@profilable
 def proposal_layer(scores, deltas, proposal_count, nms_threshold, anchors):
     """Receives anchor scores and selects a subset to pass as proposals
     to the second stage. Filtering is done based on anchor scores and
