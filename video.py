@@ -419,46 +419,46 @@ if __name__ == '__main__':
                 cls_dets = cls_dets[keep.view(-1).long()]
                 # add boxes to img
                 if vis:
-                   if (v % 60) < 4:
-                      if (v % 60) == 1:
-                          lst = list(f)
-                          g = cls_dets.cpu().size()
-                          h = g[0]
-                          while h > 0:
-                               lst.append(pascal_classes[j])
-                               h = h - 1
-                          f = np.asarray(lst)
-                          x = torch.cat((x,torch.from_numpy(cls_dets.cpu().numpy())), 0)
-                          print (f)
-                          print (x)
-                      if (v % 60) == 2:
-                          lst = list(i)
-                          g = cls_dets.cpu().size()
-                          h = g[0]
-                          while h > 0:
-                               lst.append(pascal_classes[j])
-                               h = h - 1
-                          i = np.asarray(lst)
-                          a = torch.cat((a,torch.from_numpy(cls_dets.cpu().numpy())), 0)
-                          print (i)
-                          print (a)
-                      if (v % 60) == 3:
-                          lst = list(k)
-                          g = cls_dets.cpu().size()
-                          h = g[0]
-                          while h > 0:
-                               lst.append(pascal_classes[j])
-                               h = h - 1
-                          k = np.asarray(lst)
-                          y = torch.cat((y,torch.from_numpy(cls_dets.cpu().numpy())), 0)
-                          print (k)
-                          print (y)
+                #    if (v % 60) < 4:
+                #       if (v % 60) == 1:
+                #           lst = list(f)
+                #           g = cls_dets.cpu().size()
+                #           h = g[0]
+                #           while h > 0:
+                #                lst.append(pascal_classes[j])
+                #                h = h - 1
+                #           f = np.asarray(lst)
+                #           x = torch.cat((x,torch.from_numpy(cls_dets.cpu().numpy())), 0)
+                #           print (f)
+                #           print (x)
+                #       if (v % 60) == 2:
+                #           lst = list(i)
+                #           g = cls_dets.cpu().size()
+                #           h = g[0]
+                #           while h > 0:
+                #                lst.append(pascal_classes[j])
+                #                h = h - 1
+                #           i = np.asarray(lst)
+                #           a = torch.cat((a,torch.from_numpy(cls_dets.cpu().numpy())), 0)
+                #           print (i)
+                #           print (a)
+                #       if (v % 60) == 3:
+                #           lst = list(k)
+                #           g = cls_dets.cpu().size()
+                #           h = g[0]
+                #           while h > 0:
+                #                lst.append(pascal_classes[j])
+                #                h = h - 1
+                #           k = np.asarray(lst)
+                #           y = torch.cat((y,torch.from_numpy(cls_dets.cpu().numpy())), 0)
+                #           print (k)
+                #           print (y)
                    im2show = vis_detections_beautiful(im2show, pascal_classes[j], cls_dets.cpu().numpy(), 0.5)
-                   print (v)
-                if (v % 60) == 3:
-                    pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
-                if ((v % 60) - 1) % 3 == 0:
-                    pascalreturn4, pascalreturn5 = oldfunction(5, pascal_classes[j], cls_dets, pascalreturn3)
+                #    print (v)
+                # if (v % 60) == 3:
+                #     pascalreturn1, pascalreturn2, pascalreturn3 = newfunction(f, x, i, a, k, y)
+                # if ((v % 60) - 1) % 3 == 0:
+                #     pascalreturn4, pascalreturn5 = oldfunction(5, pascal_classes[j], cls_dets, pascalreturn3)
         v = v + w
         misc_toc = time.time()
         nms_time = misc_toc - misc_tic
