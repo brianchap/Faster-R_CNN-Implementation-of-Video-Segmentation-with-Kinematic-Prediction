@@ -230,6 +230,8 @@ if __name__ == '__main__':
     im_info = torch.FloatTensor(1)
     num_boxes = torch.LongTensor(1)
     gt_boxes = torch.FloatTensor(1)
+    bbox_pred = torch.FloatTensor(1)
+    prev_bbox = torch.FloatTensor(1)
 
     # ship to cuda
     if args.cuda > 0:
@@ -237,12 +239,14 @@ if __name__ == '__main__':
         im_info = im_info.cuda()
         num_boxes = num_boxes.cuda()
         gt_boxes = gt_boxes.cuda()
+        prev_bbox = prev_bbox.cuda()
 
     # make variable
         im_data = Variable(im_data, volatile=True)
         im_info = Variable(im_info, volatile=True)
         num_boxes = Variable(num_boxes, volatile=True)
         gt_boxes = Variable(gt_boxes, volatile=True)
+        prev_bbox = Variable(prev_bbox, volatile=True)
 
     if args.cuda > 0:
         cfg.CUDA = True
@@ -318,6 +322,20 @@ if __name__ == '__main__':
             im_rgb = im_rgb[:, :, np.newaxis]
             im_rgb = np.concatenate((im_rgb, im_rgb, im_rgb), axis=2)
         # in image is rgb
+        if num_boxes != 0:
+            if boxes[0]<boxes[2]:
+                left_x = boxes[0]
+                right_x = boxes[2]
+            else:
+                left_x = boxes[2]
+                left_y = boxes[0]
+            if boxes[1] < boxes[3]:
+                low_y = boxes[1]
+                high_y = boxes[3]
+            else:
+                low_y = boxes[3]
+                high_y = boxes[1]
+            im_rgb = im_rgb[low_y : high_y,left_x : right_x, np.newaxis]
         im_in = im_rgb
 
         blobs, im_scales = _get_image_blob(im_in)
@@ -348,12 +366,22 @@ if __name__ == '__main__':
         #     rpn_loss_cls, rpn_loss_box, \
         #     RCNN_loss_cls, RCNN_loss_bbox, \
         #     rois_label = fasterRCNN(im_data, im_info, gt_boxes, num_boxes)
+        
 
+        # prev_bbox = pred_boxes #update prev_bbox
+        #print('the prev_bbox is',prev_bbox)
+        #print('the size of the gt_boxes is',gt_boxes.size())
+
+        # rois, cls_prob, bbox_pred, \
+        # rpn_loss_cls, rpn_loss_box, \
+        # RCNN_loss_cls, RCNN_loss_bbox, \
+        # rois_label = fasterRCNN(im_data, im_info, gt_boxes, num_boxes, prev_bbox)
         rois, cls_prob, bbox_pred, \
         rpn_loss_cls, rpn_loss_box, \
         RCNN_loss_cls, RCNN_loss_bbox, \
-        rois_label = fasterRCNN(im_data, im_info, gt_boxes, num_boxes)
+        rois_label = fasterRCNN(im_data, im_info, gt_boxes, num_boxes,prev_bbox)
 
+        # print('bbox_pred',bbox_pred.size())
         # 显示显存
         # handle = pynvml.nvmlDeviceGetHandleByIndex(GPU_id)
         # meminfo = pynvml.nvmlDeviceGetMemoryInfo(handle)
@@ -362,6 +390,8 @@ if __name__ == '__main__':
         scores = cls_prob.data
         #print (scores)
         boxes = rois.data[:, :, 1:5]
+        # print('boxes',boxes.size())
+        # print(boxes)
 
         if cfg.TEST.BBOX_REG:
             # Apply bounding-box regression deltas
@@ -385,14 +415,17 @@ if __name__ == '__main__':
                         box_deltas = box_deltas.view(-1, 4) * torch.FloatTensor(cfg.TRAIN.BBOX_NORMALIZE_STDS) \
                                      + torch.FloatTensor(cfg.TRAIN.BBOX_NORMALIZE_MEANS)
                     box_deltas = box_deltas.view(1, -1, 4 * len(pascal_classes))
-
+            
             pred_boxes = bbox_transform_inv(boxes, box_deltas, 1)
             pred_boxes = clip_boxes(pred_boxes, im_info.data, 1)
+            # print('pred_boxes',pred_boxes.size())
         else:
             # Simply repeat the boxes, once for each class
             pred_boxes = np.tile(boxes, (1, scores.shape[1]))
 
         pred_boxes /= im_scales[0]
+        # print('pred_boxes')
+        # prev_bbox = pred_boxes #update prev_bbox
 
         scores = scores.squeeze()
         pred_boxes = pred_boxes.squeeze()
