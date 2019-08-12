@@ -42,18 +42,20 @@ class _fasterRCNN(nn.Module):
         self.RCNN_roi_pool = ROIPool((cfg.POOLING_SIZE, cfg.POOLING_SIZE), 1.0 / 16.0)
         self.RCNN_roi_align = ROIAlign((cfg.POOLING_SIZE, cfg.POOLING_SIZE), 1.0 / 16.0, 0)
 
-    def forward(self, im_data, im_info, gt_boxes, num_boxes):
+    def forward(self, im_data, im_info, gt_boxes, num_boxes, prev_bbox):
         batch_size = im_data.size(0)
+        # print('the size of the im_data is',im_data.size())
 
         im_info = im_info.data
         gt_boxes = gt_boxes.data
         num_boxes = num_boxes.data
+        prev_bbox = prev_bbox.data ###dunno about this line 
 
         # feed image data to base model to obtain base feature map
         base_feat = self.RCNN_base(im_data)
 
         # feed base feature map tp RPN to obtain rois
-        rois, rpn_loss_cls, rpn_loss_bbox = self.RCNN_rpn(base_feat, im_info, gt_boxes, num_boxes)
+        rois, rpn_loss_cls, rpn_loss_bbox = self.RCNN_rpn(base_feat, im_info, gt_boxes, num_boxes, prev_bbox)
 
         # if it is training phrase, then use ground trubut bboxes for refining
         if self.training:

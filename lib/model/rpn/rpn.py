@@ -56,11 +56,16 @@ class _RPN(nn.Module):
         )
         return x
 
-    def forward(self, base_feat, im_info, gt_boxes, num_boxes):
+    def forward(self, base_feat, im_info, gt_boxes, num_boxes, prev_bbox):
+    # def forward(self, base_feat, im_info, gt_boxes, num_boxes):
         batch_size = base_feat.size(0)
+        # print('the size of the base_feat is',base_feat.size())
+        # print('the size of the im_info is',im_info.size())
+        # print('the size of the prev_bbox is',prev_bbox.size())
 
         # return feature map after convrelu layer
         rpn_conv1 = F.relu(self.RPN_Conv(base_feat), inplace=True)
+        
         # get rpn classification score
         rpn_cls_score = self.RPN_cls_score(rpn_conv1)
 
@@ -68,8 +73,23 @@ class _RPN(nn.Module):
         rpn_cls_prob_reshape = F.softmax(rpn_cls_score_reshape, 1)
         rpn_cls_prob = self.reshape(rpn_cls_prob_reshape, self.nc_score_out)
 
+
+        ####write some function(prev_bbox) that crops rpn_conv1
+        #if len(prev_bbox.size()) == 1:
+        #    prev_bbox = prev_bbox
+        #    do nothing
+        #else:
+        #    rpn_conv1 = rpn_conv1
+        
+            #map prev_bbox coord to rpn_conv1
+            #based on mapped coord, choose which region of rpn_conv1 to focus on
+            #crop out irrelevant region of rpn_conv1
+            ##if size has issues, just set irrelevant region of rpn_conv1 to 0
+
         # get rpn offsets to the anchor boxes
         rpn_bbox_pred = self.RPN_bbox_pred(rpn_conv1)
+        
+        ###may need to pad rpn_bbox_pred (???)
 
         # proposal layer
         cfg_key = 'TRAIN' if self.training else 'TEST'
