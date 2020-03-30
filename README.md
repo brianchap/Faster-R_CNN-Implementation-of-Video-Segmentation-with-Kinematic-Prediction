@@ -2,8 +2,6 @@
 
 This is an implementation of faster R-CNN-based video segmentation that is PyTorch 1.0 compatible (stable versions included), based on https://github.com/kevincao91/kevin.ai.faster_rcnn_pytorch_1.0_torchvision.
 
-This is believed to be the first implementation merging R-CNN video architecture with kinematic prediction.
-
 Ensure that your system has PyTorch, Python, and numpy 1.16.1+ already installed.
 
 Execute pip install -r requirements.txt
